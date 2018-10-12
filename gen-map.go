@@ -2,28 +2,28 @@
 // Any changes will be lost if this file is regenerated.
 // see https://github.com/cheekybits/genny
 
-package setof
+package mapof
 
 import (
 	"sort"
 	"sync/atomic"
 )
 
-// NewStringToString creates a new map.
-func NewStringToString() *StringToString {
-	return &StringToString{
+// StringToString creates a new map.
+func StringToString() *StringToStringMap {
+	return &StringToStringMap{
 		mapKeysToIndex: make(map[string]*indexToStringWithValueString),
 	}
 }
 
-// StringToString is a map which retains the order of the keys.
-type StringToString struct {
+// StringToStringMap is a map which retains the order of the keys.
+type StringToStringMap struct {
 	mapKeysToIndex map[string]*indexToStringWithValueString
 	index          int64
 }
 
 // Add an item to the map.
-func (m *StringToString) Add(k string, v string) {
+func (m *StringToStringMap) Add(k string, v string) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -36,19 +36,19 @@ func (m *StringToString) Add(k string, v string) {
 }
 
 // Get an item from the map.
-func (m *StringToString) Get(k string) (v string, ok bool) {
+func (m *StringToStringMap) Get(k string) (v string, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *StringToString) Del(k string) {
+func (m *StringToStringMap) Del(k string) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *StringToString) Keys() (keys []string) {
+func (m *StringToStringMap) Keys() (keys []string) {
 	kvs := make(indexToStringWithValueStrings, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
@@ -83,21 +83,21 @@ func (d indexToStringWithValueStrings) Less(i, j int) bool {
 	return d[i].index < d[j].index
 }
 
-// NewStringToInt creates a new map.
-func NewStringToInt() *StringToInt {
-	return &StringToInt{
+// StringToInt creates a new map.
+func StringToInt() *StringToIntMap {
+	return &StringToIntMap{
 		mapKeysToIndex: make(map[string]*indexToStringWithValueInt),
 	}
 }
 
-// StringToInt is a map which retains the order of the keys.
-type StringToInt struct {
+// StringToIntMap is a map which retains the order of the keys.
+type StringToIntMap struct {
 	mapKeysToIndex map[string]*indexToStringWithValueInt
 	index          int64
 }
 
 // Add an item to the map.
-func (m *StringToInt) Add(k string, v int) {
+func (m *StringToIntMap) Add(k string, v int) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -110,19 +110,19 @@ func (m *StringToInt) Add(k string, v int) {
 }
 
 // Get an item from the map.
-func (m *StringToInt) Get(k string) (v int, ok bool) {
+func (m *StringToIntMap) Get(k string) (v int, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *StringToInt) Del(k string) {
+func (m *StringToIntMap) Del(k string) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *StringToInt) Keys() (keys []string) {
+func (m *StringToIntMap) Keys() (keys []string) {
 	kvs := make(indexToStringWithValueInts, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
@@ -157,21 +157,21 @@ func (d indexToStringWithValueInts) Less(i, j int) bool {
 	return d[i].index < d[j].index
 }
 
-// NewStringToInt64 creates a new map.
-func NewStringToInt64() *StringToInt64 {
-	return &StringToInt64{
+// StringToInt64 creates a new map.
+func StringToInt64() *StringToInt64Map {
+	return &StringToInt64Map{
 		mapKeysToIndex: make(map[string]*indexToStringWithValueInt64),
 	}
 }
 
-// StringToInt64 is a map which retains the order of the keys.
-type StringToInt64 struct {
+// StringToInt64Map is a map which retains the order of the keys.
+type StringToInt64Map struct {
 	mapKeysToIndex map[string]*indexToStringWithValueInt64
 	index          int64
 }
 
 // Add an item to the map.
-func (m *StringToInt64) Add(k string, v int64) {
+func (m *StringToInt64Map) Add(k string, v int64) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -184,19 +184,19 @@ func (m *StringToInt64) Add(k string, v int64) {
 }
 
 // Get an item from the map.
-func (m *StringToInt64) Get(k string) (v int64, ok bool) {
+func (m *StringToInt64Map) Get(k string) (v int64, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *StringToInt64) Del(k string) {
+func (m *StringToInt64Map) Del(k string) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *StringToInt64) Keys() (keys []string) {
+func (m *StringToInt64Map) Keys() (keys []string) {
 	kvs := make(indexToStringWithValueInt64s, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
@@ -231,21 +231,21 @@ func (d indexToStringWithValueInt64s) Less(i, j int) bool {
 	return d[i].index < d[j].index
 }
 
-// NewIntToString creates a new map.
-func NewIntToString() *IntToString {
-	return &IntToString{
+// IntToString creates a new map.
+func IntToString() *IntToStringMap {
+	return &IntToStringMap{
 		mapKeysToIndex: make(map[int]*indexToIntWithValueString),
 	}
 }
 
-// IntToString is a map which retains the order of the keys.
-type IntToString struct {
+// IntToStringMap is a map which retains the order of the keys.
+type IntToStringMap struct {
 	mapKeysToIndex map[int]*indexToIntWithValueString
 	index          int64
 }
 
 // Add an item to the map.
-func (m *IntToString) Add(k int, v string) {
+func (m *IntToStringMap) Add(k int, v string) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -258,19 +258,19 @@ func (m *IntToString) Add(k int, v string) {
 }
 
 // Get an item from the map.
-func (m *IntToString) Get(k int) (v string, ok bool) {
+func (m *IntToStringMap) Get(k int) (v string, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *IntToString) Del(k int) {
+func (m *IntToStringMap) Del(k int) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *IntToString) Keys() (keys []int) {
+func (m *IntToStringMap) Keys() (keys []int) {
 	kvs := make(indexToIntWithValueStrings, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
@@ -305,21 +305,21 @@ func (d indexToIntWithValueStrings) Less(i, j int) bool {
 	return d[i].index < d[j].index
 }
 
-// NewIntToInt creates a new map.
-func NewIntToInt() *IntToInt {
-	return &IntToInt{
+// IntToInt creates a new map.
+func IntToInt() *IntToIntMap {
+	return &IntToIntMap{
 		mapKeysToIndex: make(map[int]*indexToIntWithValueInt),
 	}
 }
 
-// IntToInt is a map which retains the order of the keys.
-type IntToInt struct {
+// IntToIntMap is a map which retains the order of the keys.
+type IntToIntMap struct {
 	mapKeysToIndex map[int]*indexToIntWithValueInt
 	index          int64
 }
 
 // Add an item to the map.
-func (m *IntToInt) Add(k int, v int) {
+func (m *IntToIntMap) Add(k int, v int) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -332,19 +332,19 @@ func (m *IntToInt) Add(k int, v int) {
 }
 
 // Get an item from the map.
-func (m *IntToInt) Get(k int) (v int, ok bool) {
+func (m *IntToIntMap) Get(k int) (v int, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *IntToInt) Del(k int) {
+func (m *IntToIntMap) Del(k int) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *IntToInt) Keys() (keys []int) {
+func (m *IntToIntMap) Keys() (keys []int) {
 	kvs := make(indexToIntWithValueInts, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
@@ -379,21 +379,21 @@ func (d indexToIntWithValueInts) Less(i, j int) bool {
 	return d[i].index < d[j].index
 }
 
-// NewIntToInt64 creates a new map.
-func NewIntToInt64() *IntToInt64 {
-	return &IntToInt64{
+// IntToInt64 creates a new map.
+func IntToInt64() *IntToInt64Map {
+	return &IntToInt64Map{
 		mapKeysToIndex: make(map[int]*indexToIntWithValueInt64),
 	}
 }
 
-// IntToInt64 is a map which retains the order of the keys.
-type IntToInt64 struct {
+// IntToInt64Map is a map which retains the order of the keys.
+type IntToInt64Map struct {
 	mapKeysToIndex map[int]*indexToIntWithValueInt64
 	index          int64
 }
 
 // Add an item to the map.
-func (m *IntToInt64) Add(k int, v int64) {
+func (m *IntToInt64Map) Add(k int, v int64) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -406,19 +406,19 @@ func (m *IntToInt64) Add(k int, v int64) {
 }
 
 // Get an item from the map.
-func (m *IntToInt64) Get(k int) (v int64, ok bool) {
+func (m *IntToInt64Map) Get(k int) (v int64, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *IntToInt64) Del(k int) {
+func (m *IntToInt64Map) Del(k int) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *IntToInt64) Keys() (keys []int) {
+func (m *IntToInt64Map) Keys() (keys []int) {
 	kvs := make(indexToIntWithValueInt64s, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
@@ -453,21 +453,21 @@ func (d indexToIntWithValueInt64s) Less(i, j int) bool {
 	return d[i].index < d[j].index
 }
 
-// NewInt64ToString creates a new map.
-func NewInt64ToString() *Int64ToString {
-	return &Int64ToString{
+// Int64ToString creates a new map.
+func Int64ToString() *Int64ToStringMap {
+	return &Int64ToStringMap{
 		mapKeysToIndex: make(map[int64]*indexToInt64WithValueString),
 	}
 }
 
-// Int64ToString is a map which retains the order of the keys.
-type Int64ToString struct {
+// Int64ToStringMap is a map which retains the order of the keys.
+type Int64ToStringMap struct {
 	mapKeysToIndex map[int64]*indexToInt64WithValueString
 	index          int64
 }
 
 // Add an item to the map.
-func (m *Int64ToString) Add(k int64, v string) {
+func (m *Int64ToStringMap) Add(k int64, v string) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -480,19 +480,19 @@ func (m *Int64ToString) Add(k int64, v string) {
 }
 
 // Get an item from the map.
-func (m *Int64ToString) Get(k int64) (v string, ok bool) {
+func (m *Int64ToStringMap) Get(k int64) (v string, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *Int64ToString) Del(k int64) {
+func (m *Int64ToStringMap) Del(k int64) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *Int64ToString) Keys() (keys []int64) {
+func (m *Int64ToStringMap) Keys() (keys []int64) {
 	kvs := make(indexToInt64WithValueStrings, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
@@ -527,21 +527,21 @@ func (d indexToInt64WithValueStrings) Less(i, j int) bool {
 	return d[i].index < d[j].index
 }
 
-// NewInt64ToInt creates a new map.
-func NewInt64ToInt() *Int64ToInt {
-	return &Int64ToInt{
+// Int64ToInt creates a new map.
+func Int64ToInt() *Int64ToIntMap {
+	return &Int64ToIntMap{
 		mapKeysToIndex: make(map[int64]*indexToInt64WithValueInt),
 	}
 }
 
-// Int64ToInt is a map which retains the order of the keys.
-type Int64ToInt struct {
+// Int64ToIntMap is a map which retains the order of the keys.
+type Int64ToIntMap struct {
 	mapKeysToIndex map[int64]*indexToInt64WithValueInt
 	index          int64
 }
 
 // Add an item to the map.
-func (m *Int64ToInt) Add(k int64, v int) {
+func (m *Int64ToIntMap) Add(k int64, v int) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -554,19 +554,19 @@ func (m *Int64ToInt) Add(k int64, v int) {
 }
 
 // Get an item from the map.
-func (m *Int64ToInt) Get(k int64) (v int, ok bool) {
+func (m *Int64ToIntMap) Get(k int64) (v int, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *Int64ToInt) Del(k int64) {
+func (m *Int64ToIntMap) Del(k int64) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *Int64ToInt) Keys() (keys []int64) {
+func (m *Int64ToIntMap) Keys() (keys []int64) {
 	kvs := make(indexToInt64WithValueInts, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
@@ -601,21 +601,21 @@ func (d indexToInt64WithValueInts) Less(i, j int) bool {
 	return d[i].index < d[j].index
 }
 
-// NewInt64ToInt64 creates a new map.
-func NewInt64ToInt64() *Int64ToInt64 {
-	return &Int64ToInt64{
+// Int64ToInt64 creates a new map.
+func Int64ToInt64() *Int64ToInt64Map {
+	return &Int64ToInt64Map{
 		mapKeysToIndex: make(map[int64]*indexToInt64WithValueInt64),
 	}
 }
 
-// Int64ToInt64 is a map which retains the order of the keys.
-type Int64ToInt64 struct {
+// Int64ToInt64Map is a map which retains the order of the keys.
+type Int64ToInt64Map struct {
 	mapKeysToIndex map[int64]*indexToInt64WithValueInt64
 	index          int64
 }
 
 // Add an item to the map.
-func (m *Int64ToInt64) Add(k int64, v int64) {
+func (m *Int64ToInt64Map) Add(k int64, v int64) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -628,19 +628,19 @@ func (m *Int64ToInt64) Add(k int64, v int64) {
 }
 
 // Get an item from the map.
-func (m *Int64ToInt64) Get(k int64) (v int64, ok bool) {
+func (m *Int64ToInt64Map) Get(k int64) (v int64, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *Int64ToInt64) Del(k int64) {
+func (m *Int64ToInt64Map) Del(k int64) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *Int64ToInt64) Keys() (keys []int64) {
+func (m *Int64ToInt64Map) Keys() (keys []int64) {
 	kvs := make(indexToInt64WithValueInt64s, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {

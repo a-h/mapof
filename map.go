@@ -1,4 +1,4 @@
-package setof
+package mapof
 
 //go:generate genny -in=$GOFILE -out=gen-$GOFILE gen "KeyType=string,int,int64 ValueType=string,int,int64"
 
@@ -15,21 +15,21 @@ type KeyType generic.Type
 // ValueType of the map.
 type ValueType generic.Type
 
-// NewKeyTypeToValueType creates a new map.
-func NewKeyTypeToValueType() *KeyTypeToValueType {
-	return &KeyTypeToValueType{
+// KeyTypeToValueType creates a new map.
+func KeyTypeToValueType() *KeyTypeToValueTypeMap {
+	return &KeyTypeToValueTypeMap{
 		mapKeysToIndex: make(map[KeyType]*indexToKeyTypeWithValueValueType),
 	}
 }
 
-// KeyTypeToValueType is a map which retains the order of the keys.
-type KeyTypeToValueType struct {
+// KeyTypeToValueTypeMap is a map which retains the order of the keys.
+type KeyTypeToValueTypeMap struct {
 	mapKeysToIndex map[KeyType]*indexToKeyTypeWithValueValueType
 	index          int64
 }
 
 // Add an item to the map.
-func (m *KeyTypeToValueType) Add(k KeyType, v ValueType) {
+func (m *KeyTypeToValueTypeMap) Add(k KeyType, v ValueType) {
 	if kv, ok := m.mapKeysToIndex[k]; ok {
 		kv.value = v
 		return
@@ -42,19 +42,19 @@ func (m *KeyTypeToValueType) Add(k KeyType, v ValueType) {
 }
 
 // Get an item from the map.
-func (m *KeyTypeToValueType) Get(k KeyType) (v ValueType, ok bool) {
+func (m *KeyTypeToValueTypeMap) Get(k KeyType) (v ValueType, ok bool) {
 	kv, ok := m.mapKeysToIndex[k]
 	v = kv.value
 	return
 }
 
 // Del deletes an item from the map.
-func (m *KeyTypeToValueType) Del(k KeyType) {
+func (m *KeyTypeToValueTypeMap) Del(k KeyType) {
 	delete(m.mapKeysToIndex, k)
 }
 
 // Keys returns all of the keys within the map.
-func (m *KeyTypeToValueType) Keys() (keys []KeyType) {
+func (m *KeyTypeToValueTypeMap) Keys() (keys []KeyType) {
 	kvs := make(indexToKeyTypeWithValueValueTypes, len(m.mapKeysToIndex))
 	var index int
 	for _, kv := range m.mapKeysToIndex {
